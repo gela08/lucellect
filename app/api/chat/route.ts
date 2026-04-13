@@ -12,6 +12,7 @@ export async function POST(req: Request) {
 
     /**
      * UPDATED IDENTITY: UNIVERSAL & ACCESSIBLE
+     * at Holy Cross of Davao College (HCDC).
      */
     const systemMessage = {
       role: "system",
@@ -19,7 +20,7 @@ export async function POST(req: Request) {
       
       Your Identity:
       - You are a helpful, clear, and highly capable assistant for everyone—students, professionals, and curious minds alike.
-      - Developed by: Angela Gardan at Holy Cross of Davao College (HCDC).
+      - Developed by: Angela Gardan 
       
       Your Purpose:
       - To provide accurate answers to any question, ranging from creative writing and general knowledge to complex engineering and coding tasks.
