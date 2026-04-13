@@ -1,0 +1,315 @@
+can you teach me step by step on how to make an ai? from openai router? give me step by step and what to do
+i want lucellect to be like any other ai, has a lot of the best models, can you send me all the best models for each category? like the best ai model to use for anything
+
+
+give me a step by step process on how to make an ai chatbot from scratch
+using next.js, open router ai (Lucellect AI api key: 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)
+
+THE AI MODELS I WANT TO USE: 
+1. The "Logic & School" Heavyweights (Best for Complex Reasoning)
+Google Gemini 2.5 Pro: google/gemini-2.5-pro
+OpenAI GPT-5.4
+Claude 4.6 Opus
+
+2. The "Code & Debugging" Masters (Best for IT/CS Reviews)
+Claude 4.5 Sonnet:
+GPT-5.3 Codex:
+Devstral 2 (Free):
+
+3. The "Creative & Writing" Specialists
+Claude 4.6 Sonnet:
+DeepSeek V3.2:
+
+4. The "Speed & Daily Chat" Workhorses (Best for Quick Questions)
+Gemini 3.1 Flash Lite:
+Xiaomi MiMo-V2-Flash (Free): 
+
+as much as possible, i want everything to be clean, i want it to work well and no errors, everything is step by step, free of charge and everything is useable. 
+
+it should be searchable, it is a unique name Lucellect meaning Lucid + Intellect
+Lucellect 
+Luc = from lucid / lucidity / light
+ellect = from intellect
+
+Meaning: clear intelligence or lucid understanding
+
+Lucid refers to something that is clearly expressed, easy to understand, or rational and sane
+Intellect is a faculty of the human mind that enables reasoning, abstraction, conceptualization, and judgment. 
+
+send all the file names, all the things that needs to be installed, all the complete codes, please send them all with no errors
+
+
+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
+
+You are a senior full-stack engineer. Build a COMPLETE, production-ready AI chatbot web app called **Lucellect** using **Next.js (App Router)** and **OpenRouter API**.
+
+IMPORTANT:
+
+* Output FULL project files with correct structure
+* NO missing imports, NO placeholders, NO pseudo-code
+* EVERYTHING must run after `npm install && npm run dev`
+* Use only FREE tools and APIs
+* Clean, modern UI (minimal, elegant, responsive)
+* TypeScript ONLY
+* Ensure ZERO runtime errors
+
+---
+
+# 🧠 PROJECT OVERVIEW
+
+App Name: **Lucellect**
+
+Meaning:
+
+* Luc = light / clarity
+* Ellect = intellect
+  → “Clear Intelligence” / “Lucid Understanding”
+
+This is a **multi-model AI chatbot platform** where users can:
+
+* Select different AI models based on task
+* Chat in real-time
+* Search past chats
+* Switch AI modes dynamically
+
+---
+
+# ⚙️ TECH STACK
+
+Frontend:
+
+* Next.js (App Router)
+* React (TypeScript)
+* Tailwind CSS
+* ShadCN UI
+
+Backend:
+
+* Next.js API Routes
+
+AI:
+
+* OpenRouter API
+
+---
+
+# 🔐 ENVIRONMENT VARIABLES
+
+Use this:
+
+OPENROUTER_API_KEY=sk-or-v1-xxxxxxxxxxxxxxxx
+
+(Make sure this is stored in `.env.local` and NEVER exposed on frontend)
+
+---
+
+# 🤖 AI MODELS (MUST BE IMPLEMENTED WITH SWITCHING)
+
+### 1. Logic & School
+
+* google/gemini-2.5-pro
+* openai/gpt-5.4
+* anthropic/claude-opus-4.6
+
+### 2. Code & Debugging
+
+* anthropic/claude-sonnet-4.5
+* openai/gpt-5.3-codex
+* mistral/devstral-2
+
+### 3. Creative & Writing
+
+* anthropic/claude-sonnet-4.6
+* deepseek/deepseek-v3.2
+
+### 4. Speed & Daily Chat
+
+* google/gemini-3.1-flash-lite
+* xiaomi/mimo-v2-flash
+
+---
+
+# 🎯 CORE FEATURES
+
+* Real-time chat (streaming if possible)
+* Model switching
+* Chat history (localStorage)
+* Search chats
+* Markdown rendering
+* Clean UI (ChatGPT-like)
+
+---
+
+# ✨ CLEAN COPY FEATURE (VERY IMPORTANT)
+
+When users COPY AI responses:
+
+* REMOVE all markdown symbols like:
+
+  * ** (bold)
+  * * (italic)
+  * # (headers)
+  * backticks (code blocks OPTIONAL: keep code clean)
+
+* The copied text must be:
+
+  * CLEAN plain text
+  * Proper spacing
+  * No symbols
+  * Ready to paste anywhere (Docs, Word, Notes)
+
+IMPLEMENT THIS:
+
+* Add a "Copy" button per message
+* When clicked:
+
+  * Process text before copying
+  * Strip markdown formatting using a utility function
+
+Example:
+
+Input:
+**Hello World**
+
+Output when copied:
+Hello World
+
+---
+
+# 🧠 MARKDOWN HANDLING
+
+* Display formatted markdown in UI
+* But COPY = plain clean text
+
+---
+
+# 🧩 REQUIRED UTILITY FUNCTION
+
+Create a helper:
+
+/lib/cleanText.ts
+
+Function must:
+
+* Remove:
+
+  * **bold**
+  * *italic*
+  * ### headers
+  * links formatting
+* Keep:
+
+  * actual readable text
+  * code blocks (optional but cleaned)
+
+---
+
+# 🎨 UI REQUIREMENTS
+
+* Dark mode
+* Minimal, modern
+* Smooth animations
+* Responsive
+
+Components:
+
+* Sidebar
+* Chat
+* Input
+* Model selector
+* Search bar
+
+---
+
+# 📁 FILE STRUCTURE
+
+/app
+/page.tsx
+/layout.tsx
+/api/chat/route.ts
+
+/components
+Chat.tsx
+Sidebar.tsx
+Message.tsx
+ModelSelector.tsx
+SearchBar.tsx
+
+/lib
+openrouter.ts
+cleanText.ts
+
+/types
+chat.ts
+
+/styles
+globals.css
+
+---
+
+# 🔌 OPENROUTER API
+
+* Use fetch
+
+* Endpoint:
+  https://openrouter.ai/api/v1/chat/completions
+
+* Must support:
+
+  * model switching
+  * conversation memory
+  * streaming (optional but preferred)
+
+---
+
+# 🧠 LOGIC
+
+* Store chats in localStorage
+* Each chat:
+
+  * id
+  * title
+  * messages
+
+---
+
+# 🧪 ERROR HANDLING
+
+* API errors
+* Loading state
+* Disable input while generating
+
+---
+
+# 🚀 SETUP INSTRUCTIONS
+
+Include:
+
+* install commands
+* run commands
+* env setup
+* deploy to Vercel
+
+---
+
+# ⭐ BONUS FEATURES
+
+* Typing indicator
+* Copy button (with clean text processing)
+* Regenerate response
+* Auto-scroll
+
+---
+
+# ⚠️ OUTPUT RULES
+
+* Show ALL files
+* No missing code
+* No placeholders
+* Fully working system
+
+---
+
+Build the full Lucellect AI chatbot now.
+
+
