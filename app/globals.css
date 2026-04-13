@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -124,7 +125,65 @@
   body {
     @apply bg-background text-foreground;
   }
-  html {
-    @apply font-sans;
+}
+
+/* --- Readability Fixes --- */
+@layer utilities {
+  .prose-lucellect {
+    /* Base text styles */
+    @apply text-zinc-300 antialiased;
+    line-height: 1.85;
+    font-size: 1.05rem;
+
+    /* Tailwind Typography overrides via standard CSS nesting */
+    & p {
+      @apply my-7 leading-relaxed;
+    }
+
+    & h1, & h2, & h3, & h4 {
+      @apply mt-12 mb-6 text-white font-bold tracking-tight;
+    }
+
+    & h1 { @apply text-3xl; }
+    & h2 { @apply text-2xl; }
+    & h3 { @apply text-xl; }
+
+    & ul, & ol {
+      @apply my-8 pl-8;
+    }
+
+    & li {
+      @apply my-3;
+      padding-left: 0.5rem;
+    }
+
+    & ul {
+      list-style-type: disc;
+    }
+
+    & ol {
+      list-style-type: decimal;
+    }
+
+    /* Code Blocks */
+    & pre {
+      @apply bg-zinc-900/50 border border-white/10 rounded-2xl my-8 p-4 overflow-x-auto;
+    }
+
+    & code {
+      @apply text-emerald-400 bg-zinc-800/50 px-1.5 py-0.5 rounded-md font-medium;
+      /* Removes default backticks from typography plugin */
+      &::before, &::after {
+        content: none !important;
+      }
+    }
+
+    & hr {
+      @apply border-white/5 my-12;
+    }
+
+    & blockquote {
+      @apply border-l-2 border-zinc-700 pl-6 italic text-zinc-400 my-8;
+    }
   }
 }
