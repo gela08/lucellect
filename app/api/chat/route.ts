@@ -1,6 +1,6 @@
 import { OPENROUTER_HEADERS, OPENROUTER_URL } from '@/lib/openrouter';
 
-export const runtime = 'edge';
+// export const runtime = 'edge';
 
 export async function POST(req: Request) {
   try {
