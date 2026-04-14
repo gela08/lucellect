@@ -2,19 +2,21 @@
 import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Copy, RefreshCcw, Send, Loader2 } from "lucide-react";
+import { Copy, RefreshCcw, Send, Loader2, ChevronDown } from "lucide-react";
 import { MODELS, Chat, Message } from "@/types/chat";
 import { copyCleanText } from "@/lib/cleanText";
 
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
-// IMPORTANT: You must import the KaTeX CSS for the signs to render
+// IMPORTANT: KaTeX CSS for rendering math signs
 import 'katex/dist/katex.min.css';
 
 export default function ChatWindow({ chat, onUpdate }: { chat: Chat, onUpdate: (c: Chat) => void }) {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  // Initialize with the chat's existing modelId
+  const [selectedModel, setSelectedModel] = useState(chat.modelId);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -26,7 +28,8 @@ export default function ChatWindow({ chat, onUpdate }: { chat: Chat, onUpdate: (
     if (!input.trim() || loading) return;
 
     const userMsg: Message = { id: Date.now().toString(), role: 'user', content: input, timestamp: Date.now() };
-    const updatedChat = { ...chat, messages: [...chat.messages, userMsg] };
+    const updatedChat = { ...chat, messages: [...chat.messages, userMsg], modelId: selectedModel };
+    
     onUpdate(updatedChat);
     const currentInput = input;
     setInput("");
@@ -38,7 +41,10 @@ export default function ChatWindow({ chat, onUpdate }: { chat: Chat, onUpdate: (
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
-        body: JSON.stringify({ messages: updatedChat.messages, model: chat.modelId }),
+        body: JSON.stringify({ 
+          messages: updatedChat.messages, 
+          model: selectedModel // Sending the user-selected model
+        }),
       });
 
       if (!res.body) return;
@@ -80,9 +86,26 @@ export default function ChatWindow({ chat, onUpdate }: { chat: Chat, onUpdate: (
 
   return (
     <main className="flex-1 flex flex-col bg-[#09090b] text-zinc-100 h-screen">
-      {/* Header - Simple & Minimal */}
+      {/* Header with Model Switcher */}
       <div className="px-6 py-4 border-b border-white/5 bg-[#09090b]/50 backdrop-blur-md flex justify-between items-center shrink-0">
-        <span className="text-sm font-medium tracking-tight opacity-50">Lucellect v1.0</span>
+        <div className="flex items-center gap-4">
+          <span className="text-sm font-medium tracking-tight opacity-50">Lucellect AI</span>
+          
+          <div className="relative flex items-center group">
+            <select 
+              value={selectedModel}
+              onChange={(e) => setSelectedModel(e.target.value)}
+              className="appearance-none bg-zinc-900/50 border border-white/10 text-[11px] uppercase tracking-wider text-zinc-300 rounded-full px-4 py-1.5 pr-8 outline-none focus:ring-1 focus:ring-white/20 transition-all cursor-pointer hover:bg-zinc-800"
+            >
+              {MODELS.map((m) => (
+                <option key={m.id} value={m.id} className="bg-[#09090b]">
+                  {m.name}
+                </option>
+              ))}
+            </select>
+            <ChevronDown size={12} className="absolute right-3 pointer-events-none opacity-50" />
+          </div>
+        </div>
       </div>
 
       {/* Message Feed */}
@@ -91,14 +114,11 @@ export default function ChatWindow({ chat, onUpdate }: { chat: Chat, onUpdate: (
           {chat.messages.map((m) => (
             <div key={m.id} className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}>
               <div className="w-full">
-
-                {/* User Message */}
                 {m.role === 'user' ? (
                   <div className="bg-zinc-100 text-zinc-900 px-5 py-2.5 rounded-2xl font-medium shadow-sm ml-auto w-fit max-w-[80%]">
                     {m.content}
                   </div>
                 ) : (
-                  /* Assistant Message with Math Support */
                   <div className="relative group w-full">
                     <div className="prose prose-invert prose-lucellect max-w-none">
                       <ReactMarkdown 
@@ -109,7 +129,6 @@ export default function ChatWindow({ chat, onUpdate }: { chat: Chat, onUpdate: (
                       </ReactMarkdown>
                     </div>
 
-                    {/* Minimalist Action Bar */}
                     <div className="mt-6 flex items-center gap-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <button
                         onClick={() => copyCleanText(m.content)}
@@ -152,7 +171,7 @@ export default function ChatWindow({ chat, onUpdate }: { chat: Chat, onUpdate: (
                   sendMessage();
                 }
               }}
-              placeholder="Ask Lucellect anything..."
+              placeholder={`Ask Lucellect anything...`}
               className="w-full bg-zinc-900/80 border border-white/10 rounded-2xl py-4 pl-6 pr-16 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all resize-none shadow-2xl text-zinc-100"
             />
             <button

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   keywords: ["Lucellect", "Angela Gardan", "Engineering AI", "Math AI", "Clean AI Interface", "Developer AI Assistant", "jelly", "gel", "gela08", "gela", "lucellectai", "lucellect.ai", "lucellect", "lucellect chat", "lucellect ai assistant", "lucellect math support", "lucellect clean interface", "lucellect", "ai"],
   authors: [{ name: "Angela Gardan" }],
   openGraph: {
-    title: "Lucellect",
+    title: "Lucellect AI",
     description: "Developed by Angela Gardan. Purpose-built for clarity and mathematical precision.",
     url: "https://lucellectai.vercel.app",
     siteName: "Lucellect",
