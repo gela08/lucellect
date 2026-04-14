@@ -39,6 +39,6 @@
   },
 
   "overrides": {
-  "node-domexception": "$DOMException"
+  "node-domexception": "1.0.0"
   }
 }
