@@ -28,7 +28,13 @@ export const metadata: Metadata = {
     images: [{ url: "/og-image.png" }], // Create a nice preview image
     type: "website",
   },
+
+  verification: {
+    google: 'Eyn5sIqBA1Uhpd9AC6i6YN6OWbA5S1q44_HwIk72qHc',
+  },
 };
+
+
 
 export default function RootLayout({
   children,
